@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZIKA CORE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Orbitron',sans-serif;
+}
+
+body{
+    background:#08080d;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.panel{
+    width:380px;
+    background:#0f0f18;
+    border:1px solid #b000ff;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 0 25px rgba(176,0,255,.5);
+}
+
+.logo{
+    text-align:center;
+    color:#d946ef;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:5px;
+    text-shadow:0 0 15px #d946ef;
+}
+
+.owner{
+    text-align:center;
+    margin-bottom:25px;
+    color:#ccc;
+}
+
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.tab{
+    flex:1;
+    padding:12px;
+    text-align:center;
+    border:2px solid #d946ef;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.tab:hover{
+    box-shadow:0 0 15px #d946ef;
+}
+
+label{
+    display:block;
+    margin:15px 0 8px;
+    color:#ddd;
+}
+
+input,select{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#151520;
+    color:white;
+    border:1px solid #8b5cf6;
+}
+
+.sender{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.card{
+    flex:1;
+    text-align:center;
+    padding:18px;
+    border:2px solid #d946ef;
+    border-radius:15px;
+    cursor:pointer;
+}
+
+.card:hover{
+    box-shadow:0 0 20px #d946ef;
+}
+
+.launch{
+    margin-top:25px;
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(90deg,#ff0080,#9333ea);
+    box-shadow:0 0 20px rgba(255,0,128,.5);
+}
+
+.launch:hover{
+    transform:scale(1.02);
+}
+
+.footer{
+    margin-top:20px;
+    text-align:center;
+    color:#888;
+    font-size:12px;
+}
+</style>
+</head>
+<body>
+
+<div class="panel">
+
+    <div class="logo">ZIKA CORE</div>
+    <div class="owner">OWNER PANEL</div>
+
+    <div class="tabs">
+        <div class="tab">MENU 1</div>
+        <div class="tab">MENU 2</div>
+    </div>
+
+    <label>Nomor Target</label>
+    <input type="text" placeholder="+62xxxxxxxxxx">
+
+    <label>Pilih Mode</label>
+    <select>
+        <option>Mode A</option>
+        <option>Mode B</option>
+        <option>Mode C</option>
+    </select>
+
+    <div class="sender">
+        <div class="card">PRIVATE</div>
+        <div class="card">GLOBAL</div>
+    </div>
+
+    <button class="launch">START</button>
+
+    <div class="footer">
+        ZIKA UI v1.0
+    </div>
+
+</div>
+
+</body>
+</html>
