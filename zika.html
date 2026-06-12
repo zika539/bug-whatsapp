@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZIKA CORE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Orbitron',sans-serif;
+}
+
+body{
+    background:#08080d;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    padding:20px;
+}
+
+.panel{
+    width:380px;
+    background:#0f0f18;
+    border:1px solid #b000ff;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 0 25px rgba(176,0,255,.5);
+}
+
+.logo{
+    text-align:center;
+    color:#d946ef;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:5px;
+    text-shadow:0 0 15px #d946ef;
+}
+
+.owner{
+    text-align:center;
+    margin-bottom:25px;
+    color:#ccc;
+}
+
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.tab{
+    flex:1;
+    padding:12px;
+    text-align:center;
+    border:2px solid #d946ef;
+    border-radius:12px;
+}
+
+label{
+    display:block;
+    margin:15px 0 8px;
+    color:#ddd;
+}
+
+input,select{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#151520;
+    color:white;
+    border:1px solid #8b5cf6;
+}
+
+.sender{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.card{
+    flex:1;
+    text-align:center;
+    padding:18px;
+    border:2px solid #d946ef;
+    border-radius:15px;
+    transition:.3s;
+}
+
+.card:hover{
+    box-shadow:0 0 20px #d946ef;
+}
+
+.launch{
+    margin-top:20px;
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(90deg,#ff0080,#9333ea);
+    box-shadow:0 0 20px rgba(255,0,128,.5);
+}
+
+#log{
+    margin-top:20px;
+    background:#111;
+    border:1px solid #b000ff;
+    border-radius:12px;
+    padding:10px;
+    height:150px;
+    overflow:auto;
+    font-size:12px;
+}
+
+.footer{
+    margin-top:20px;
+    text-align:center;
+    color:#888;
+    font-size:12px;
+}
+</style>
+</head>
+<body>
+
+<div class="panel">
+
+    <div class="logo">ZIKA CORE</div>
+    <div class="owner">OWNER PANEL</div>
+
+    <div class="tabs">
+        <div class="tab">MENU 1</div>
+        <div class="tab">MENU 2</div>
+    </div>
+
+    <label>Nomor Target</label>
+    <input type="text" placeholder="+62xxxxxxxxxx">
+
+    <label>Pilih Mode</label>
+    <select>
+        <option>Mode A</option>
+        <option>Mode B</option>
+        <option>Mode C</option>
+    </select>
+
+    <div class="sender">
+        <div class="card">☠️ X-CRASH</div>
+        <div class="card">📨 SPAM</div>
+    </div>
+
+    <div class="sender">
+        <div class="card">⚡ KENON</div>
+        <div class="card">🔄 RESET</div>
+    </div>
+
+    <label>Delay</label>
+    <input type="range" min="100" max="10000" value="1000" id="delay">
+
+    <label>Virtual File Size</label>
+    <select id="filesize">
+        <option>10 GB</option>
+        <option>50 GB</option>
+        <option>100 GB</option>
+        <option>200 GB</option>
+    </select>
+
+    <button class="launch" onclick="fakeStart()">
+        START SIMULATION
+    </button>
+
+    <div id="log"></div>
+
+    <div class="footer">
+        ZIKA UI v1.0
+    </div>
+
+</div>
+
+<script>
+function fakeStart(){
+
+    const delay = document.getElementById("delay").value;
+    const file = document.getElementById("filesize").value;
+    const log = document.getElementById("log");
+
+    log.innerHTML = "";
+
+    log.innerHTML += "[SYSTEM] ZIKA CORE ONLINE<br>";
+
+    setTimeout(()=>{
+        log.innerHTML += "[MODULE] Loading Interface...<br>";
+    },500);
+
+    setTimeout(()=>{
+        log.innerHTML += "[CONFIG] Delay: " + delay + " ms<br>";
+    },1000);
+
+    setTimeout(()=>{
+        log.innerHTML += "[CONFIG] Virtual File: " + file + "<br>";
+    },1500);
+
+    setTimeout(()=>{
+        log.innerHTML += "[SIMULATION] Running Demo...<br>";
+    },2000);
+
+    setTimeout(()=>{
+        log.innerHTML += "[SUCCESS] Demo Finished<br>";
+    },3000);
+}
+</script>
+
+</body>
+</html>
