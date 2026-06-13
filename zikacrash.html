@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zika Core | Cyberpunk Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 20% 30%, #0a0f0f, #000000);
+            font-family: 'Courier New', 'Fira Code', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #0ff;
+            overflow-x: hidden;
+        }
+
+        /* Glitch background effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,255,255,0.03) 0px, rgba(0,255,255,0.03) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cyber-container {
+            background: rgba(10, 20, 20, 0.75);
+            backdrop-filter: blur(8px);
+            border: 2px solid #0ff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 25px;
+            max-width: 800px;
+            width: 100%;
+            z-index: 2;
+            transition: all 0.2s;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 1px solid #0ff;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: 6px;
+            text-shadow: 0 0 8px #0ff, 0 0 20px #0ff;
+            animation: glitch 1.5s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+            95% { text-shadow: -2px 0 red, 2px 0 blue; }
+            96% { text-shadow: 2px 0 red, -2px 0 blue; }
+        }
+
+        .login-panel {
+            background: #000000aa;
+            border: 1px solid #0ff;
+            padding: 15px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .login-panel input {
+            background: black;
+            border: 1px solid #0ff;
+            padding: 10px;
+            color: #0ff;
+            font-family: monospace;
+            flex: 1;
+            outline: none;
+        }
+
+        .login-panel button {
+            background: #0ff;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-panel button:hover {
+            background: #0fa;
+            box-shadow: 0 0 12px #0ff;
+        }
+
+        .status {
+            font-size: 0.85rem;
+            margin-top: 10px;
+            text-align: center;
+            color: #fa0;
+        }
+
+        .grid-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 18px;
+            margin: 25px 0;
+        }
+
+        .neon-btn {
+            background: #111;
+            border: 1.5px solid #0ff;
+            color: #0ff;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 14px 0;
+            cursor: pointer;
+            transition: 0.1s linear;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: monospace;
+        }
+
+        .neon-btn:hover {
+            background: #0ff;
+            color: black;
+            box-shadow: 0 0 18px #0ff;
+            transform: scale(1.02);
+        }
+
+        .logs {
+            background: #010101cc;
+            border: 1px solid #0ff;
+            height: 200px;
+            overflow-y: auto;
+            padding: 12px;
+            font-size: 0.8rem;
+            font-family: monospace;
+            margin-top: 20px;
+        }
+
+        .log-line {
+            border-left: 3px solid #0ff;
+            padding-left: 8px;
+            margin: 6px 0;
+            color: #bfe;
+        }
+
+        .warning {
+            color: #f0f;
+            text-shadow: 0 0 3px magenta;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #0ff9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cyber-container" id="app">
+    <div class="header">
+        <h1>⚡ ZIKA CORE v.69 ⚡</h1>
+        <div style="font-size: 0.8rem;">[ CYBERPUNK SIMULATION MODE ]</div>
+    </div>
+
+    <!-- Login Dana Key -->
+    <div class="login-panel">
+        <input type="text" id="username" placeholder="USERNAME" value="1234">
+        <input type="text" id="key" placeholder="KEY" value="001">
+        <button id="loginBtn">➤ AUTHENTICATE</button>
+    </div>
+    <div id="loginStatus" class="status">🔐 awaiting login...</div>
+
+    <!-- Tombol fitur -->
+    <div class="grid-buttons">
+        <button class="neon-btn" id="crashBtn" disabled>💀 X CRASH</button>
+        <button class="neon-btn" id="delayBtn" disabled>⏳ DELAY</button>
+        <button class="neon-btn" id="kenonBtn" disabled>⚙️ KENON</button>
+        <button class="neon-btn" id="reportBtn" disabled>📡 REPORT</button>
+        <button class="neon-btn" id="resetBtn" disabled>🔄 RESET</button>
+    </div>
+
+    <!-- Logs Console -->
+    <div class="logs" id="logArea">
+        <div class="log-line">> ZIKA CORE ONLINE [SIM]</div>
+        <div class="log-line">> Waiting for Alpha authentication...</div>
+    </div>
+    <footer>⚠️ SIMULATION MODE — No actual harm. Visual effects only.</footer>
+</div>
+
+<script>
+    // SIMULASI — tidak ada fungsi merusak sama sekali
+    const validUsername = "1234";
+    const validKey = "001";
+    let authenticated = false;
+    let delayActive = false;
+
+    const logArea = document.getElementById('logArea');
+    const crashBtn = document.getElementById('crashBtn');
+    const delayBtn = document.getElementById('delayBtn');
+    const kenonBtn = document.getElementById('kenonBtn');
+    const reportBtn = document.getElementById('reportBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginStatus = document.getElementById('loginStatus');
+
+    function addLog(msg, isWarning = false) {
+        const logDiv = document.createElement('div');
+        logDiv.className = 'log-line';
+        if (isWarning) logDiv.classList.add('warning');
+        logDiv.innerHTML = `> ${new Date().toLocaleTimeString()} | ${msg}`;
+        logArea.appendChild(logDiv);
+        logDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function enableButtons(enable) {
+        const btns = [crashBtn, delayBtn, kenonBtn, reportBtn, resetBtn];
+        btns.forEach(btn => { if(btn) btn.disabled = !enable; });
+    }
+
+    loginBtn.addEventListener('click', () => {
+        const user = document.getElementById('username').value.trim();
+        const k = document.getElementById('key').value.trim();
+        if(user === validUsername && k === validKey) {
+            authenticated = true;
+            loginStatus.innerHTML = "✅ ACCESS GRANTED | ZO ACTIVE";
+            loginStatus.style.color = "#0f0";
+            addLog("🔓 SYSTEM UNLOCKED — Welcome Alpha.", false);
+            enableButtons(true);
+        } else {
+            authenticated = false;
+            loginStatus.innerHTML = "❌ ACCESS DENIED | invalid credentials";
+            loginStatus.style.color = "#f44";
+            addLog("⛔ AUTH FAILED — unauthorized access attempt", true);
+            enableButtons(false);
+        }
+    });
+
+    // X CRASH (simulasi visual)
+    crashBtn.addEventListener('click', () => {
+        if(!authenticated) return;
+        addLog("💢 X CRASH activated — simulating WhatsApp buffer overload [FAKE]", false);
+        addLog("⚠️ [SIMULATION] no actual crash occurred — safe mode", true);
+        // efek visual glitch kecil di container
+        const container = document.querySelector('.cyber-container');
+        container.style.transform = "skew(1deg, 0.5deg)";
+        setTimeout(() => container.style.transform = "none", 150);
+    });
+
+    // DELAY (fake latency simulation)
+    delayBtn.addEventListener('click', async () => {
+        if(!authenticated) return;
+        if(delayActive) {
+            addLog("⏸️ Delay already running, stop it first with RESET or wait", false);
+            return;
+        }
+        delayActive = true;
+        addLog("🐢 DELAY mode ON — simulating network lag (3 sec fake latency)", false);
+        addLog("⏳ This is visual only — no actual attack", true);
+        // efek UI loading
+        const originalText = delayBtn.innerText;
+        delayBtn.innerText = "⏳ DELAYING...";
+        delayBtn.style.opacity = "0.7";
+        await new Promise(r => setTimeout(r, 3000));
+        delayBtn.innerText = originalText;
+        delayBtn.style.opacity = "1";
+        addLog("✅ DELAY simulation finished — no harm done", false);
+        delayActive = false;
+    });
+
+    // KENON (disable simulasi)
+    kenonBtn.addEventListener('click', () => {
+        if(!authenticated) return;
+        addLog("🔌 KENON triggered — simulated component deactivation [FAKE]", false);
+        addLog("📛 No actual WhatsApp or system disabled — pure cyberpunk aesthetic", true);
+        const btns = [crashBtn, delayBtn, kenonBtn, reportBtn];
+        btns.forEach(btn => { if(btn && btn !== resetBtn) btn.style.opacity = "0.5"; });
+        addLog("⚡ UI frozen for 1 sec (just for fun)", false);
+        setTimeout(() => {
+            btns.forEach(btn => { if(btn) btn.style.opacity = "1"; });
+        }, 1000);
+    });
+
+    // REPORT (fake report to nowhere)
+    reportBtn.addEventListener('click', () => {
+        if(!authenticated) return;
+        addLog("📡 REPORT signal broadcasted — dummy payload [SIMULATION]", false);
+        addLog("🛡️ No data sent — purely decorative", true);
+        addLog("👾 Target: fake_whatsapp.zika.local (loopback)", false);
+    });
+
+    // RESET full state
+    resetBtn.addEventListener('click', () => {
+        if(!authenticated) return;
+        addLog("🔄 RESET command received — clearing all fake attack flags", false);
+        delayActive = false;
+        const btns = [crashBtn, delayBtn, kenonBtn, reportBtn];
+        btns.forEach(btn => { if(btn) btn.style.opacity = "1"; });
+        addLog("✅ System restored to simulation defaults. No harm ever caused.", false);
+        addLog("💚 ZIKA CORE simulation — ready for next command, Alpha.", false);
+    });
+</script>
+</body>
+</html>
